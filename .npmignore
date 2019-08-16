@@ -6,3 +6,8 @@ src
 wallaby.js
 !dist/**
 **/coverage/**/*
+.editorconfig
+.gitattributes
+jest.config.js
+ tslint.json
+ *.map
