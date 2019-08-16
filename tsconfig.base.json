@@ -2,17 +2,21 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
+    "outDir": "./dist/compiled",
+    "noImplicitAny": true,
+    "sourceMap": true,
     "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
     "noEmitOnError": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
     "plugins": [
-      { "transform": "./transformer" }
+      { "transform": "ts-transformer-json-schema/transformer" }
     ]
   },
   "include": [
-    "test/*.spec.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules"

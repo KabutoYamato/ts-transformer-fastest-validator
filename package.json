@@ -1,12 +1,24 @@
 {
-  "name": "ts-transformer-json-schema",
+  "name": "ts-transformer-fastest-validator",
   "version": "0.6.4",
   "description": "A TypeScript custom transformer to obtain JSON schema from interface.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "prepublish": "ttsc",
+    "tsc": "ttsc",
+    "build": "npm run clean && npm run tsc",
     "pretest": "ttsc",
-    "test": "ttsc --project tsconfig.test.json && jest --coverage"
+    "lint": "tslint -p tsconfig.json",
+    "lint:fix": "tslint -p tsconfig.json --fix",
+    "clean": "rimraf dist coverage",
+    "compile": "npm run clean && npm run tsc",
+    "tsc:dec": "ttsc --declaration",
+    "copy-package-json": "copyfiles  ./package.json ./README.md ./dist/package",
+    "copy-src": "copyfiles -u 3 ./dist/compiled/src/**/*  ./dist/package/",
+    "create-package": "npm run clean && npm run tsc:dec && npm run copy-package-json && npm run copy-src",
+    "preversion": "npm run lint && npm run tsc && npm run test",
+    "postversion": "git push && git push --follow-tags",
+    "deploy": "npm run build && npm run create-package && cd ./dist/package && npm publish",
+    "test": "ttsc --project tsconfig.json && jest -c jest.tsc.config.js --coverage"
   },
   "repository": {
     "type": "git",
@@ -20,25 +32,28 @@
   "bugs": {
     "url": "https://github.com/ipetrovic11/ts-transformer-json-schema/issues"
   },
-  "files": [
-    "index.js",
-    "index.ts",
-    "transformer.js",
-    "transformer.ts",
-    "predefined.d.ts",
-    "predefined.js"
-  ],
   "homepage": "https://github.com/ipetrovic11/ts-transformer-json-schema",
   "devDependencies": {
-    "@types/jest": "^24.0.16",
-    "@types/node": "^12.0.0",
+    "@types/jest": "^24.0.17",
+    "@types/node": "^12.7.2",
     "fastest-validator": "^0.6.17",
-    "jest": "^24.8.0",
-    "jest-cli": "^24.8.0",
+    "jest": "^24.9.0",
+    "pre-commit": "^1.2.2",
+    "jest-cli": "^24.9.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "tslint-eslint-rules": "^5.4.0",
     "tslint": "^5.18.0",
     "ttypescript": "^1.5.7",
-    "typescript": "^3.5.3"
+    "jest-environment-node": "^24.9.0",
+    "jest-runner-tsc": "^1.5.1",
+    "typescript": "^3.5.3",
+    "copyfiles": "^2.1.1"
   },
+  "pre-commit": [
+    "lint",
+    "tsc",
+    "test"
+  ],
   "peerDependencies": {
     "typescript": ">=2.4.1"
   }

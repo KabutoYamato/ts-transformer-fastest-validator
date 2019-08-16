@@ -1,5 +1,7 @@
 *.js
-!jest.config.js
+!jest.tsc.config.js
 npm-debug.log*
 node_modules
 coverage
+.idea
+dist
