@@ -1,6 +1,6 @@
-import Validator from 'fastest-validator';
+import * as Validator from 'fastest-validator';
 
-const v = new Validator();
+const v = new (Validator as any)();
 
 import { schema, IEmail, IUUID } from '../index';
 

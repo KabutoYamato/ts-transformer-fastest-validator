@@ -1,24 +1,21 @@
 {
   "name": "ts-transformer-fastest-validator",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "A TypeScript custom transformer to obtain JSON schema from interface.",
   "main": "index.js",
   "scripts": {
-    "tsc": "ttsc",
-    "build": "npm run clean && npm run tsc",
-    "pretest": "ttsc",
+    "build": "npm run clean && ttsc",
+    "prepublish": "ttsc",
+    "pretest": "ttsc --project tsconfig.test.json ",
     "lint": "tslint -p tsconfig.json",
     "lint:fix": "tslint -p tsconfig.json --fix",
-    "clean": "rimraf coverage test/*.spec.js",
-    "compile": "npm run clean && npm run tsc",
-    "tsc:dec": "ttsc --declaration",
-    "copy-package-json": "copyfiles  ./package.json ./README.md ./dist/package",
-    "copy-src": "copyfiles -u 3 ./dist/compiled/src/**/*  ./dist/package/",
-    "create-package": "npm run clean && npm run tsc:dec && npm run copy-package-json && npm run copy-src",
+    "clean": "rimraf coverage test/*.js  \"!(*.config|*.support).js\" ",
+    "compile": "npm run clean && ttsc",
+
     "preversion": "npm run lint && npm run tsc && npm run test",
     "postversion": "git push && git push --follow-tags",
-    "deploy": "npm run build && npm run create-package && cd ./dist/package && npm publish",
-    "test": "ttsc --project tsconfig.test.json && jest --coverage"
+    "deploy": "npm run build && npm run lint && npm run test && npm publish",
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -51,7 +48,6 @@
   },
   "pre-commit": [
     "lint",
-    "tsc",
     "test"
   ],
   "peerDependencies": {
