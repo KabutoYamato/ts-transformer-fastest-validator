@@ -1,5 +1,5 @@
 /* tslint:disable:no-empty-interface */
-import { schema ,  IEmail, IDate, IForbidden, IUrl, IUUID } from '../src';
+import { schema ,  IEmail, IDate, IForbidden, IUrl, IUUID } from '../index';
 import { IExternal } from './interfaces';
 
 describe('Test json schema tranformer', () => {

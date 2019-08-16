@@ -1,5 +1,5 @@
 *.js
-!jest.tsc.config.js
+!jest.config.js
 npm-debug.log*
 node_modules
 coverage

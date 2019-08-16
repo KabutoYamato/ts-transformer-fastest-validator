@@ -1,8 +1,8 @@
-import * as  Validator from 'fastest-validator';
+import Validator from 'fastest-validator';
 
 const v = new Validator();
 
-import { schema, IEmail, IUUID } from '../src';
+import { schema, IEmail, IUUID } from '../index';
 
 describe('Test validator directly with json schema transformer', () => {
 
